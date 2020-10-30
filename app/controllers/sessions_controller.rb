@@ -1,12 +1,14 @@
 class SessionsController < ApplicationController
     
+    def new 
+    end 
+
     def create
-        @user = User.find_by(name: params[:user][:name])
-        if !@user || !@user.authenticate(params[:user][:password])
-            return head(:forbidden) 
-        else
-         session[:user_id] = @user.id
-        redirect_to "application#hello"
+        session[:user_id] = params[:id]
+        if !params[:id] || params[:id].empty?
+            redirect_to '/signin'
+        else 
+            redirect_to '/'
+        end 
     end 
 end
-end 
